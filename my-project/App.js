@@ -1,6 +1,10 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View , LogBox } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+LogBox.ignoreLogs([
+  "Setting a timer",
+  "AsyncStorage has been extracted from react-native core and will be removed in a future release.",
+]);
 const Stack = createNativeStackNavigator();
 
 import Login from "./screens/Login";
@@ -14,16 +18,23 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen name="SignUp" component={SignUp}/>
       <Stack.Screen name="Login" component={Login} />
 
-      <Stack.Screen name="Map" component={Map} />
       <Stack.Screen name="Request" component={Request} />
-
 
       <Stack.Screen name="Svg" component={Svg} />
 
+      <Stack.Screen name="Map" component={Map} />
+
+
       <Stack.Screen name="BarCode" component={BarCode} />
+
+
+      <Stack.Screen name="SignUp" component={SignUp}/>
+
+
+
+
       
 <Stack.Screen name="Manager" component={Manager} />
 

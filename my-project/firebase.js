@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
 import {getDocs, getFirestore,collection, addDoc,doc,setDoc,getDoc, query, orderBy, limit,onSnapshot  } from "firebase/firestore";
 import { getAuth,updateProfile,signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword,onAuthStateChanged } from "firebase/auth";
+ import { getStorage,uploadString, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
 const firebaseConfig = {
   apiKey: "AIzaSyAY2q0Q_dbtcYHkvXMdDY6ubrwsR4zoYzg",
   authDomain: "native-abde9.firebaseapp.com",
@@ -14,4 +16,15 @@ const app = initializeApp(firebaseConfig);
 // const db = getFirestore();
 const auth = getAuth(app);
 const db = getFirestore();
-export {getDocs,onSnapshot,app,auth,signOut,updateProfile,createUserWithEmailAndPassword,signInWithEmailAndPassword,onAuthStateChanged ,db,setDoc,doc,collection,addDoc,getDoc, query, orderBy, limit };
+const storage = getStorage(app);
+export {db,app,auth,
+  getDocs,onSnapshot,
+  signOut,updateProfile,
+  createUserWithEmailAndPassword,signInWithEmailAndPassword,
+  onAuthStateChanged,
+  setDoc,doc,collection,addDoc,getDoc,
+ query,orderBy,limit,
+storage,getStorage, ref, uploadBytesResumable, getDownloadURL,uploadString
+};
+
+

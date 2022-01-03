@@ -1,76 +1,97 @@
+import { query, db, deleteDoc, addDoc, collection, onSnapshot, doc, where } from '../firebase';
+import { useEffect, useState } from "react"
+import React from 'react'
+import { StyleSheet, Text, View, TextInput,ScrollView } from 'react-native'
+import QRCode from 'react-native-qrcode-svg';
+import { auth, signInWithEmailAndPassword } from '../firebase';
 
-// import * as React from 'react';
-// import QRCode from 'react-native-qrcode-svg';
-// import { query, db,deleteDoc, addDoc, collection, onSnapshot, doc, where } from '../firebase';
-// import { useEffect, useState } from "react"
-// import { SafeAreaView,Text } from 'react-native-safe-area-context';
-// export default function Svg() {
-
-// const [acceptOrders, setAcceptOrders] = useState([]);
-//     useEffect(() => {
-//       const q = query(collection(db, "accept"),);
-//       onSnapshot(q, (querySnapshot) => {
-//         const accept = [];
-//         querySnapshot.forEach((doc) => {
-//           let id = doc.id
-//           let data =doc.data()
-//           accept.push({
-//             id:id,
-//             name:data.name,
-//             fatherName:data.fatherName,
-//             cnic:data.cnic,
-//             dateOfBirth:data.dateOfBirth,
-//             familyMemeber:data.familyMemeber,
-//             income:data.income,
-//             value:data.value,
-//             url:data.image,
-//             urlNic:data.image2
-
-//           });
-//         });
-//         setAcceptOrders(accept);
-//       });
-//     }, []) 
-   
-    
-    
-    
-  import { query, db,deleteDoc, addDoc, collection, onSnapshot, doc, where } from '../firebase';
-  
-  import { useEffect, useState } from "react"
-  import React from 'react'
-  import { StyleSheet, Text, View } from 'react-native'
-  import QRCode from 'react-native-qrcode-svg';
-import {auth,signInWithEmailAndPassword} from '../firebase';
-  
-  export default function Svg() {
+export default function Svg() {
   const [acceptOrders, setAcceptOrders] = useState([]);
- 
-  
-    return (
-      <>
-         <QRCode
-            value="auth.currentUser"
+  const [email, setEmail] = useState('areeb')
+
+  useEffect(() => {
+    const q = query(collection(db, "accept"),);
+    onSnapshot(q, (querySnapshot) => {
+      const accept = [];
+      querySnapshot.forEach((doc) => {
+        let id = doc.id
+        let data = doc.data()
+        accept.push({
+          id: id,
+          name: data.name,
+          fatherName: data.fatherName,
+          cnic: data.cnic,
+          dateOfBirth: data.dateOfBirth,
+          familyMemeber: data.familyMemeber,
+          income: data.income,
+          value: data.value,
+        });
+      });
+      setAcceptOrders(accept);
+      console.log(acceptOrders);
+    });
+  }, [])
+
+
+
+
+
+
+
+
+
+
+
+
+  return (
+    <ScrollView>
+      {
+        acceptOrders.map((eachTodo, i) => {
+          return (
+            <View style={{justifyContent:"center",alignItems:"center",marginTop:10}} key={i}>
+              <Text>id:{eachTodo.id} </Text>
+              <Text>name:{eachTodo.name}</Text>
+              <Text>fatherName:{eachTodo.fatherName}</Text>
+              <Text>CNiC:{eachTodo.cnic}</Text>
+              <Text>DateofBirth:{eachTodo.dateOfBirth}</Text>
+              <Text>income:{eachTodo.income}</Text>
+              <Text>category:{eachTodo.value}</Text>
+              <Text>familyMemeber:{eachTodo.familyMemeber}</Text>
+              <View style={{marginTop:5}}>
+          <QRCode
+            value={eachTodo.id}
           />
+      </View>
+
+              </View>
+          )
+        })
+      }
 
 
-          
-    </>
-    )
-  }
-  
-  const styles = StyleSheet.create({})
 
-    
-    
-    
-    
-    
-    
-    
-    // return (
-        
-         
+
+
+
+
+
+</ScrollView>
+
+  )
+}
+
+const styles = StyleSheet.create({})
+
+
+
+
+
+
+
+
+// return (
+
+
 {/* 
 {acceptOrders.map((eachTodo, i) => {
 
@@ -92,6 +113,6 @@ import {auth,signInWithEmailAndPassword} from '../firebase';
           
 
 //  */}
-        
+
 //         );
 //       };

@@ -23,7 +23,7 @@ if(user.email == "manager@gmail.com"){
   navigation.navigate("Manager")
 
 }else{
-  navigation.navigate("Request")
+  navigation.navigate("Map")
 
 }
 

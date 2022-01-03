@@ -1,4 +1,5 @@
 {
+  "homepage": "https://muhammadareeb313.github.io/food-web",
   "name": "web",
   "version": "0.1.0",
   "private": true,
@@ -22,6 +23,8 @@
     "yup": "^0.32.11"
   },
   "scripts": {
+    "predploy":"npm run build",
+    "deploy":"gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -44,5 +47,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^3.2.3"
   }
 }

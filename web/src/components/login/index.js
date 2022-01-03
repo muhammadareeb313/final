@@ -37,7 +37,7 @@ function Login() {
       .then(userCredentials => {
         const user = userCredentials.user;
         console.log('Logged in with:', user.email);
-history.push("request")
+history.push("signup")
       })
       .catch(error => alert(error.message))
   }

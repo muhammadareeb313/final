@@ -26,7 +26,7 @@ export default function App() {
   }
 
   return (
-    <View >
+    <View style={styles.container}>
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
@@ -35,3 +35,11 @@ export default function App() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({ 
+  container:{
+flex:1,
+
+
+}
+ }); 

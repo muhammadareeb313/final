@@ -1,12 +1,14 @@
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { auth } from '../firebase';
+import { storage, ref,uploadString, uploadBytesResumable, getDownloadURL } from "../firebase";
+
 import { query, db, addDoc, collection, onSnapshot, doc, getDocs } from '../firebase';
 import DropDownPicker from 'react-native-dropdown-picker';
 import React, { useState, useEffect } from "react";
 import { Button, Image,  Platform } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
-const Request = ({ navigation }) => {
+const Request = ({ navigation,route }) => {
   const [name, setName] = useState('')
   const [fatherName, setFatherName] = useState('')
   const [cnic, setCnic] = useState('')
@@ -36,11 +38,10 @@ const Request = ({ navigation }) => {
     console.log(result);
 
     if (result) {
-      setImage(result);
-      console.log(image);
+      setImage(result.uri);
+
     }
   };
-  console.log("ok",image)
 
 
   const pickImage2 = async () => {
@@ -51,14 +52,60 @@ const Request = ({ navigation }) => {
       quality: 1,
     });
 
-    console.log(result);
+    // console.log(result);
 
-    if (result) {
-      setImage2(result);
-      console.log(image2);
+    if (!result.cancelled) {
+     setImage2(result.uri);
+
     }
-  };
-  console.log("ok",image2)
+
+};
+
+// const pickImage2 = async () => {
+// console.log(image);
+// const storageRef = ref(storage, 'some-child');
+
+// }
+
+// const uploadTask = uploadBytesResumable(storageRef, file);
+
+// // Register three observers:
+// // 1. 'state_changed' observer, called any time the state changes
+// // 2. Error observer, called on failure
+// // 3. Completion observer, called on successful completion
+// uploadTask.on('state_changed', 
+//   (snapshot) => {
+//     // Observe state change events such as progress, pause, and resume
+//     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+//     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+//     console.log('Upload is ' + progress + '% done');
+//     switch (snapshot.state) {
+//       case 'paused':
+//         console.log('Upload is paused');
+//         break;
+//       case 'running':
+//         console.log('Upload is running');
+//         break;
+//     }
+//   }, 
+//   (error) => {
+//     // Handle unsuccessful uploads
+//     console.log(error);
+//   }, 
+//   () => {
+//     // Handle successful uploads on complete
+//     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+//     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+//       console.log('File available at', downloadURL);
+//     });
+//   }
+// );
+
+
+
+
+
+
 
 
 
@@ -75,12 +122,14 @@ const Request = ({ navigation }) => {
         income: income,
         value: value,
         url:image,
+        branch:`${route.params.paramKey}`
 
         
 
       });
       console.log("Document written with ID: ", docRef.id);
-      navigation.navigat("Svg")
+      console.log(route.params.paramKey);
+      navigation.navigate("Svg")
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -185,12 +234,14 @@ const Request = ({ navigation }) => {
         >
           <Text style={styles.buttonText}>Request</Text>
         </TouchableOpacity>
+{/* <Text>{image2}</Text> */}
         {/* <TouchableOpacity
           onPress={get}
           style={styles.button}
         >
           <Text style={styles.buttonText}>Request</Text>
         </TouchableOpacity> */}
+
       </View>
 
     </KeyboardAvoidingView>
